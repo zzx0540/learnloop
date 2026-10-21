@@ -21,5 +21,7 @@ Costs are recorded estimates, not invoices. Truncated or failed/retried requests
 - Chinese UI and Asia/Shanghai learning-day boundaries; the English README does not imply an English interface.
 - No claim that every OpenAI-compatible endpoint supports every model option.
 - English automatic article discovery requires a provider that supports the configured web-search extension. Import reading materials manually otherwise.
-- No paid-provider integration test was run for this candidate; no real API keys were accessed.
+- One bounded live DeepSeek Flash knowledge-course test was completed with a user-supplied temporary key; the key was removed afterwards. Other provider and English web-search capabilities remain unverified.
 - The pre-authored demo is for browsing. Model generation, uploads and business writes are intentionally blocked; it is not a simulation of a real model response.
+
+The demo application and database stay on an internal network. A small Nginx gateway joins that network and a separate bridge, publishing only 127.0.0.1:8088. This makes the demo reachable on Docker Desktop while keeping the application off an external network.

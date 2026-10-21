@@ -79,9 +79,9 @@ Markdown/TXT 入库不需要文档解析服务。PDF、DOCX 和 EPUB 有本地�
 
 ## 验证状态与限制
 
-本候选版在本机 Python 3.12 / PostgreSQL 15 的独立数据库上运行测试，并完成前端构建和桌面/375px浏览器检查，详情见 [验证记录](docs/verification.md)。提供 PostgreSQL 16、前后端测试及 Docker 演示的 GitHub Actions 工作流。
+本候选版已完成本机 Docker 镜像构建、全新 PostgreSQL 16 演示启动、同镜像112条测试及桌面/375px浏览器检查。另用 DeepSeek Flash 和原创 SQL 教材跑通了真实模型入库、计划、出题、批改与复习流程，详情见 [本机实跑记录](docs/local-runtime-acceptance.md)。提供对应 GitHub Actions 工作流。
 
-**当前主机没有 Docker 引擎，因此本轮没有执行 Docker 镜像构建或 GitHub Actions；也没有使用真实密钥执行付费模型验收。** 实际发布前仍需完成这两项。系统目前要求单个后端进程，不支持直接增加副本。
+**GitHub Actions 云端尚未执行**，需要在作者授权的仓库中验证。真实模型验收仅覆盖一次小型知识课程，不代表所有模型、文档格式或英语能力均已验证。系统目前要求单个后端进程，不支持直接增加副本。
 
 遇到首次运行问题：先看 `docker compose logs --tail=100 app`，分享问题前移除密钥、文档内容与个人信息。查看 [架构与限制](docs/architecture.md)、[安全说明](SECURITY.md) 和 [后续计划](docs/ROADMAP.md)。
 

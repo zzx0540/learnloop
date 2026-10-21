@@ -3,33 +3,52 @@ services:
   app:
     build: .
     init: true
-    ports: ["127.0.0.1:8088:8000"]
     environment:
-      DEMO_MODE: "true"
+      DEMO_MODE: 'true'
       DATABASE_URL: postgresql+asyncpg://learnloop_demo:demo-database-only@pg-demo:5432/learnloop_demo
       FILES_DIR: /data/files
     depends_on:
       pg-demo:
         condition: service_healthy
-    volumes: ["demo-files:/data/files"]
+    volumes:
+    - demo-files:/data/files
     mem_limit: 2g
-    networks: [demo]
+    networks:
+    - demo
+    expose:
+    - '8000'
   pg-demo:
     image: postgres:16-alpine
     environment:
       POSTGRES_USER: learnloop_demo
       POSTGRES_PASSWORD: demo-database-only
       POSTGRES_DB: learnloop_demo
-    volumes: ["demo-db:/var/lib/postgresql/data"]
+    volumes:
+    - demo-db:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U learnloop_demo -d learnloop_demo"]
+      test:
+      - CMD-SHELL
+      - pg_isready -U learnloop_demo -d learnloop_demo
       interval: 5s
       timeout: 5s
       retries: 15
-    networks: [demo]
+    networks:
+    - demo
+  gateway:
+    image: nginx:stable-alpine
+    ports:
+    - 127.0.0.1:8088:80
+    volumes:
+    - ./deploy/nginx-demo.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+    - app
+    networks:
+    - web
+    - demo
 networks:
   demo:
     internal: true
+  web: {}
 volumes:
-  demo-db:
-  demo-files:
+  demo-db: null
+  demo-files: null

@@ -54,7 +54,7 @@ Back up both the PostgreSQL and uploaded-file volumes. The default port binds to
 
 ## Review status
 
-Local backend tests ran with Python 3.12 and isolated PostgreSQL 15; frontend build and desktop/mobile browser checks were performed. See [verification](docs/verification.md). CI is supplied for PostgreSQL 16, frontend checks and the Docker demo. **Docker builds, GitHub Actions and paid-provider integration were not run on this host.** Do not treat those as passed.
+The Docker image was built locally; a fresh PostgreSQL 16 demo and 112 same-image backend tests passed, along with desktop/mobile browser checks. One bounded live DeepSeek Flash run covered original SQL material ingestion, planning, quiz generation, grading and review. See [runtime acceptance](docs/local-runtime-acceptance.md) and [earlier verification](docs/verification.md). **GitHub-hosted Actions have not run.** This small live sample does not validate every provider, document format or language-learning flow.
 
 ## License
 
