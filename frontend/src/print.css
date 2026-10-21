@@ -1,0 +1,468 @@
+@page {
+  size: A4;
+  margin: 18mm 16mm;
+}
+
+.print-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  border-bottom: 1px solid #e2e8f0;
+  background: rgb(255 255 255 / 94%);
+  box-shadow: 0 4px 18px rgb(15 23 42 / 7%);
+  backdrop-filter: blur(10px);
+}
+
+.print-sheet {
+  box-sizing: border-box;
+  width: 210mm;
+  min-height: 297mm;
+  margin: 0 auto;
+  padding: 18mm 16mm;
+  overflow: visible;
+  background: white;
+  color: #0f172a;
+  box-shadow: 0 16px 45px rgb(15 23 42 / 16%);
+  font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", system-ui, sans-serif;
+  font-size: 10.5pt;
+  line-height: 1.65;
+}
+
+.print-page-header {
+  margin-bottom: 9mm;
+  padding-bottom: 5mm;
+  border-bottom: 1.5px solid #334155;
+  break-inside: avoid;
+}
+
+.print-page-header-main {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 8mm;
+}
+
+.print-course-name {
+  color: #475569;
+  font-size: 9pt;
+  letter-spacing: 0.08em;
+}
+
+.print-page-header h1 {
+  margin: 1mm 0 0;
+  color: #0f172a;
+  font-size: 21pt;
+  line-height: 1.2;
+}
+
+.print-header-date {
+  flex: none;
+  color: #475569;
+  font-size: 9.5pt;
+}
+
+.print-header-fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4mm 12mm;
+  margin-top: 4mm;
+  color: #334155;
+  font-size: 9.5pt;
+}
+
+.print-empty-state {
+  padding: 24mm 8mm;
+  color: #64748b;
+  text-align: center;
+}
+
+.print-section-title {
+  margin: 0 0 4mm;
+  font-size: 17pt;
+  line-height: 1.3;
+  break-after: avoid;
+}
+
+.print-daily-section + .print-daily-section {
+  break-before: page;
+}
+
+.print-kp-list {
+  display: grid;
+  gap: 2.5mm;
+  margin: 0 0 6mm;
+  padding: 0;
+  list-style: none;
+}
+
+.print-kp-list li {
+  padding: 2.5mm 3mm;
+  border-left: 2.5px solid #818cf8;
+  background: #f8fafc;
+  break-inside: avoid;
+}
+
+.print-kp-list strong {
+  display: block;
+  font-size: 10.5pt;
+}
+
+.print-kp-list em {
+  display: block;
+  margin-top: 0.5mm;
+  color: #64748b;
+  font-size: 9pt;
+}
+
+.print-wiki-section {
+  margin-top: 7mm;
+}
+
+.print-wiki-title {
+  margin: 0 0 3mm;
+  padding-bottom: 1.5mm;
+  border-bottom: 1px solid #cbd5e1;
+  font-size: 13pt;
+  break-after: avoid;
+}
+
+.print-notes-label {
+  margin-top: 8mm;
+  font-weight: 700;
+  break-after: avoid;
+}
+
+.print-answer-lines {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 8mm,
+    #cbd5e1 8.15mm,
+    transparent 8.3mm
+  );
+  break-inside: avoid;
+}
+
+.print-note-lines {
+  min-height: 62mm;
+}
+
+.print-answer-lines-cloze {
+  min-height: 20mm;
+  margin-top: 4mm;
+}
+
+.print-answer-lines-short {
+  min-height: 82mm;
+  margin-top: 4mm;
+}
+
+.print-quiz-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 8mm;
+  margin-bottom: 7mm;
+  padding: 4mm;
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  break-inside: avoid;
+}
+
+.print-quiz-heading h2 {
+  margin: 0;
+  font-size: 16pt;
+}
+
+.print-quiz-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2mm 8mm;
+  margin-top: 2mm;
+  color: #475569;
+  font-size: 9.5pt;
+}
+
+.print-total-score {
+  flex: none;
+  color: #1d4ed8;
+  font-size: 25pt;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.print-total-score span {
+  color: #64748b;
+  font-size: 13pt;
+  font-weight: 600;
+}
+
+.print-question {
+  margin-bottom: 6mm;
+  padding: 5mm;
+  border: 1px solid #cbd5e1;
+  border-radius: 2mm;
+  background: white;
+  break-inside: avoid;
+}
+
+.print-question-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4mm;
+  margin-bottom: 3mm;
+  padding-bottom: 2mm;
+  border-bottom: 1px solid #e2e8f0;
+  break-after: avoid;
+}
+
+.print-question-heading > div,
+.print-question-heading > strong:first-child {
+  display: flex;
+  align-items: center;
+  gap: 3mm;
+}
+
+.print-question-heading span {
+  color: #64748b;
+  font-size: 9pt;
+}
+
+.print-options {
+  display: grid;
+  gap: 2mm;
+  margin-top: 4mm;
+}
+
+.print-options > div {
+  display: grid;
+  grid-template-columns: 6mm minmax(0, 1fr);
+  gap: 1mm;
+}
+
+.print-judgement {
+  margin-top: 5mm;
+  font-size: 16pt;
+  letter-spacing: 0.2em;
+}
+
+.print-question-wrong {
+  border-left: 3px solid #dc2626;
+}
+
+.print-answer-comparison {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3mm;
+  margin-top: 4mm;
+}
+
+.print-answer-comparison > div {
+  padding: 3mm;
+  background: #f8fafc;
+}
+
+.print-answer-comparison span,
+.print-feedback > strong,
+.print-explanation > strong {
+  color: #475569;
+  font-size: 8.5pt;
+  font-weight: 700;
+}
+
+.print-answer-comparison p {
+  margin: 1.5mm 0 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.print-feedback,
+.print-explanation {
+  margin-top: 3mm;
+  padding: 3mm;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+
+.print-sources {
+  margin-top: 3mm;
+  color: #64748b;
+  font-size: 8.5pt;
+}
+
+.print-outline-layer {
+  margin-bottom: 7mm;
+}
+
+.print-outline-layer-title {
+  margin: 0 0 2mm;
+  padding-bottom: 1.5mm;
+  border-bottom: 1px solid #94a3b8;
+  font-size: 13pt;
+  break-after: avoid;
+}
+
+.print-outline-item {
+  display: grid;
+  grid-template-columns: 11mm minmax(0, 1fr) auto;
+  gap: 3mm;
+  align-items: start;
+  padding: 2.5mm 0;
+  border-bottom: 1px dotted #cbd5e1;
+  break-inside: avoid;
+}
+
+.print-outline-number {
+  color: #475569;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+
+.print-outline-title {
+  font-weight: 700;
+}
+
+.print-outline-summary {
+  margin-top: 0.5mm;
+  overflow: hidden;
+  color: #64748b;
+  font-size: 8.8pt;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.print-outline-status {
+  white-space: nowrap;
+  font-size: 9pt;
+}
+
+.print-outline-footer {
+  margin-top: 8mm;
+  padding-top: 4mm;
+  border-top: 1.5px solid #334155;
+  break-inside: avoid;
+}
+
+.print-outline-legend,
+.print-outline-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2mm 6mm;
+}
+
+.print-outline-stats {
+  margin-top: 3mm;
+  font-weight: 600;
+}
+
+.print-static-link {
+  color: inherit;
+  font-weight: 600;
+}
+
+.print-markdown {
+  min-width: 0;
+  color: #1e293b;
+  font-size: 10pt;
+  line-height: 1.7;
+}
+
+.print-markdown h1,
+.print-markdown h2,
+.print-markdown h3,
+.print-markdown h4 {
+  break-after: avoid;
+}
+
+.print-markdown p,
+.print-markdown li {
+  orphans: 3;
+  widows: 3;
+}
+
+.print-markdown pre {
+  overflow: visible;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  break-inside: avoid;
+}
+
+.print-markdown code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", "Noto Sans Mono CJK SC", monospace;
+}
+
+.print-markdown table,
+.print-markdown blockquote,
+.print-markdown .katex-display {
+  break-inside: avoid;
+}
+
+.print-markdown .katex-display {
+  max-width: 100%;
+  min-height: 0;
+  overflow: visible;
+  padding: 1mm 0;
+}
+
+.print-markdown .katex-display > .katex {
+  display: block;
+  max-width: 100%;
+  transform-origin: left top;
+}
+
+.print-markdown .katex {
+  transform-origin: left top;
+}
+
+.print-content-image {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 235mm;
+  margin: 3mm auto;
+  object-fit: contain;
+  break-inside: avoid;
+}
+
+@media print {
+  html,
+  body,
+  #root,
+  .print-screen {
+    min-width: 0 !important;
+    background: white !important;
+  }
+
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  [data-print-hide],
+  .print-toolbar,
+  button,
+  nav {
+    display: none !important;
+  }
+
+  .print-preview-scroll {
+    overflow: visible !important;
+    padding: 0 !important;
+  }
+
+  .print-sheet {
+    width: auto;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .print-toolbar > div {
+    max-width: 100%;
+  }
+}

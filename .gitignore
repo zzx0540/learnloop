@@ -1,0 +1,30 @@
+# 安全：含明文 API 密钥，绝不入库
+instructions.md
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+# Node
+node_modules/
+frontend/dist/
+
+# 系统
+.DS_Store
+
+# 运行数据
+data/
+backups/
+
+*.pem
+*.key
+*.dump
+*.sql
+*.sql.gz
+*.log

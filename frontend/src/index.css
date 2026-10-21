@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC",
+    system-ui, sans-serif;
+}
+
+body {
+  @apply bg-slate-50 text-slate-800 antialiased;
+}
+
+/* Markdown 渲染基础排版（不引入 typography 插件，轻量自定义） */
+.prose-learnloop {
+  @apply text-[15px] leading-7 text-slate-700;
+}
+.prose-learnloop h1 {
+  @apply mb-3 mt-6 border-b border-slate-200 pb-2 text-xl font-bold text-slate-900;
+}
+.prose-learnloop h2 {
+  @apply mb-2 mt-5 text-lg font-semibold text-slate-900;
+}
+.prose-learnloop h3 {
+  @apply mb-2 mt-4 font-semibold text-slate-900;
+}
+.prose-learnloop p {
+  @apply my-2;
+}
+.prose-learnloop ul {
+  @apply my-2 list-disc pl-6;
+}
+.prose-learnloop ol {
+  @apply my-2 list-decimal pl-6;
+}
+.prose-learnloop li {
+  @apply my-0.5;
+}
+.prose-learnloop blockquote {
+  @apply my-2 border-l-4 border-indigo-200 bg-indigo-50/50 px-3 py-1 text-slate-600;
+}
+.prose-learnloop code {
+  @apply rounded bg-slate-100 px-1 py-0.5 text-[13px] text-rose-600;
+}
+.prose-learnloop pre {
+  @apply my-3 overflow-x-auto rounded-lg bg-slate-900 p-3;
+}
+.prose-learnloop pre code {
+  @apply bg-transparent p-0 text-[13px] text-slate-100;
+}
+.prose-learnloop table {
+  @apply my-3 w-full border-collapse text-sm;
+}
+.prose-learnloop th,
+.prose-learnloop td {
+  @apply border border-slate-200 px-2 py-1;
+}
+.prose-learnloop th {
+  @apply bg-slate-100 font-medium;
+}
+.prose-learnloop hr {
+  @apply my-4 border-slate-200;
+}
