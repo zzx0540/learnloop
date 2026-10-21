@@ -13,6 +13,7 @@ class Settings(BaseSettings):
     database_url: str = "postgresql+asyncpg://learnloop:learnloop@pg:5432/learnloop"
     static_dir: str = "/srv/static"
     files_dir: str = "/data/files"
+    legal_dir: str = ""
 
     cookie_secure: bool = False
     session_ttl_days: int = 30

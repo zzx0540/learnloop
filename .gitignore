@@ -31,3 +31,5 @@ backups/
 .qa/
 playwright-report/
 test-results/
+
+.legal/

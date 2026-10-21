@@ -1,6 +1,6 @@
 # Contributing
 
-This is a public-release candidate under review. The interface is Chinese; the English README describes setup and scope. The project license is not yet selected. Please wait for that decision before submitting substantial contributed code.
+This is a public-release candidate under review. The interface is Chinese; the English README describes setup and scope. Original project code is AGPL-3.0-only. By submitting a contribution you agree to license it under the same terms and confirm you have the necessary rights. Retain third-party notices and identify any newly introduced licensed materials.
 
 ## Local development
 
@@ -15,3 +15,5 @@ CI creates its own PostgreSQL service, validates migrations, runs backend tests 
 Keep model calls in `AgentRuntime`, verify course ownership for user data, and preserve task deduplication and original documents. Use Alembic for schema changes. The application currently supports a single backend process; do not add replicas without redesigning worker recovery and scheduling.
 
 For a fix, describe the user-visible problem, add a focused regression test where useful, and document migration or compatibility implications. Never attach real user documents, tokens or database dumps. Use the original examples in `examples/`.
+
+After source changes, regenerate local legal artifacts with `python tools/package_source.py . .legal`. Docker builds do this automatically. The download must describe the code actually running, and must never include secrets or learner files.

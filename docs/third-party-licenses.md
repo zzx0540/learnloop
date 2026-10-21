@@ -1,15 +1,16 @@
-# Dependency license review
+# Dependency licenses
 
-The author has not selected a license for LearnLoop. The recommended option for the current dependency set is AGPL-3.0-only; see [the proposal](licensing-proposal.md), which is not yet an adopted license. Public visibility and permission to reuse code are separate decisions. This candidate does not declare MIT, Apache or another project license.
+LearnLoop's original code is licensed under **AGPL-3.0-only**, confirmed by the author on 2026-10-20.
+The complete terms are in [LICENSE](../LICENSE), with the project scope and copyright in [NOTICE](../NOTICE).
 
-The existing document parsers require attention before a public release:
+Third-party components retain their own licenses. The authoritative project notice index is
+[THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md); preserved texts and font notices are in [LICENSES/](../LICENSES/README.md).
 
-| Component | Version reviewed | Upstream license information |
-| --- | --- | --- |
-| PyMuPDF | 1.28.2 | AGPL-3.0 or commercial licensing: https://pymupdf.readthedocs.io/en/latest/about.html#license-and-copyright |
-| pymupdf4llm | 0.0.27 | AGPL/commercial license metadata; upstream source: https://github.com/pymupdf/pymupdf4llm |
-| EbookLib | 0.20 | GNU AGPL; https://github.com/aerkalov/ebooklib |
+PyMuPDF and pymupdf4llm use their AGPL licensing option here; this project does not grant a commercial Artifex license.
+EbookLib remains under its AGPL license. KaTeX code is MIT, while the embedded font notices specify OFL 1.1;
+these font terms and Reserved Font Names are retained separately.
 
-Review the exact dependency license texts and distribution obligations before selecting the project's license or distributing a built image. This preparation preserves parser functionality and does not grant a commercial license or assert that a permissive project license resolves those obligations. The author can choose a compatible licensing approach or commission replacement parsers and compatibility tests.
-
-`backend-dependencies.tsv` and `frontend-dependencies.tsv` record package metadata for the reviewed environment. They are inventories, not a complete legal clearance or replacement for upstream notices. No dependency source tree, database content or vendor binary is included in the review ZIP.
+The package inventories in this directory document the reviewed versions. Refresh them and the preserved notices
+when dependencies change. This source release does not include dependency implementations, private configuration or user data.
+For binary/image distribution, also satisfy the applicable third-party corresponding-source obligations; a list of package names
+alone is not a substitute. See [the adopted licensing rationale](licensing-proposal.md).

@@ -25,3 +25,7 @@ Costs are recorded estimates, not invoices. Truncated or failed/retried requests
 - The pre-authored demo is for browsing. Model generation, uploads and business writes are intentionally blocked; it is not a simulation of a real model response.
 
 The demo application and database stay on an internal network. A small Nginx gateway joins that network and a separate bridge, publishing only 127.0.0.1:8088. This makes the demo reachable on Docker Desktop while keeping the application off an external network.
+
+## License artifacts
+
+Docker packages allowlisted original project source and legal notices at build time. Fixed public `/api/legal/license`, `/api/legal/notices` and `/api/legal/source` routes serve only those packaged artifacts. They do not expose live storage, environment files, arbitrary paths or Git credentials. Source consumers receive the exact packaged code and installation inputs; dependency source obligations remain applicable for downstream binary distributors.

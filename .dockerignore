@@ -10,3 +10,10 @@ instructions.md
 data
 backups
 .DS_Store
+
+**/.env
+**/.env.*
+!.env.example
+**/.venv
+.legal
+**/*.log

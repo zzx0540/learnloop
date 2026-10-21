@@ -1,0 +1,30 @@
+LearnLoop / 学习环
+Copyright (C) 2026 zzx0540 and the LearnLoop contributors
+
+Unless a file expressly states otherwise, original LearnLoop source code,
+documentation and original demonstration content in this repository are licensed
+under the GNU Affero General Public License, version 3 only.
+SPDX-License-Identifier: AGPL-3.0-only
+
+You may redistribute and modify this work under the terms of version 3 of the
+GNU Affero General Public License published by the Free Software Foundation.
+No permission to use a later license version is granted by this notice.
+
+This program is provided WITHOUT ANY WARRANTY, including any implied warranty
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See LICENSE for the
+complete terms.
+
+Third-party software, fonts, license texts and notices remain under their own
+licenses and copyrights. See THIRD_PARTY_NOTICES.md and LICENSES/. This notice
+does not relicense those materials or imply endorsement by their authors.
+
+Source repository: https://github.com/zzx0540/learnloop
+Build instructions: README.md, README.en.md and Dockerfile.
+The application exposes the build's own source snapshot at /api/legal/source.
+That snapshot excludes installed dependencies, secrets and user data; pinned
+versions and upstream source information accompany the project. Distributors
+must also satisfy the applicable corresponding-source obligations for any
+third-party components they distribute.
+
+This public repository's licensing decision does not grant rights to unrelated
+production systems, private learner data or institutional documents.

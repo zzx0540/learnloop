@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 
 import { AuthGuard } from "./lib/auth";
+import { LegalNotice } from "./components/LegalNotice";
 const AdminCosts = lazy(() => import("./pages/AdminCosts"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Login = lazy(() => import("./pages/Login"));
@@ -31,6 +32,7 @@ const QuizPrintPage = lazy(() => import("./pages/print/QuizPrintPage"));
 
 export default function App() {
   return (
+    <>
     <Suspense fallback={<div className="p-8 text-center text-slate-500">正在加载学习空间…</div>}>
     <Routes>
       <Route path="/login" element={<Login />} />
@@ -163,5 +165,7 @@ export default function App() {
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
     </Suspense>
+    <LegalNotice />
+    </>
   );
 }

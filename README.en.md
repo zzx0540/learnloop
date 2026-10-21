@@ -6,7 +6,7 @@
 
 ![A pre-authored SQL study plan](docs/images/plan.png)
 
-LearnLoop connects source documents, versioned Wiki pages, planning, retrieval practice, quizzes and FSRS review. It is a self-hosted, multi-user application. This public-release candidate is awaiting author review; the UI is Chinese and learning-day boundaries use Asia/Shanghai.
+LearnLoop connects source documents, versioned Wiki pages, planning, retrieval practice, quizzes and FSRS review. It is a self-hosted, multi-user application. The project is licensed under AGPL-3.0-only; the UI is Chinese and learning-day boundaries use Asia/Shanghai.
 
 ## Try the pre-authored demo
 
@@ -54,8 +54,12 @@ Back up both the PostgreSQL and uploaded-file volumes. The default port binds to
 
 ## Review status
 
-The Docker image was built locally; a fresh PostgreSQL 16 demo and 112 same-image backend tests passed, along with desktop/mobile browser checks. One bounded live DeepSeek Flash run covered original SQL material ingestion, planning, quiz generation, grading and review. See [runtime acceptance](docs/local-runtime-acceptance.md) and [earlier verification](docs/verification.md). The candidate is now in the author’s private repository with GitHub Actions enabled; consult [the run for the relevant commit](https://github.com/zzx0540/learnloop/actions) for its result. The repository remains private pending explicit publication approval. This small live sample does not validate every provider, document format or language-learning flow.
+The Docker image was built locally; a fresh PostgreSQL 16 demo and 112 same-image backend tests passed, along with desktop/mobile browser checks. One bounded live DeepSeek Flash run covered original SQL material ingestion, planning, quiz generation, grading and review. See [runtime acceptance](docs/local-runtime-acceptance.md) and [earlier verification](docs/verification.md). The source repository is [zzx0540/learnloop](https://github.com/zzx0540/learnloop); consult [the run for the relevant commit](https://github.com/zzx0540/learnloop/actions) for its result. This small live sample does not validate every provider, document format or language-learning flow.
 
 ## License
 
-The project license has not been selected; this candidate does not grant an open-source license. AGPL-3.0-only is proposed for the current dependency set, pending author approval; see [the proposal](docs/licensing-proposal.md). Existing PDF/EPUB parsers include AGPL dependencies. Review [third-party licensing](docs/third-party-licenses.md) before public distribution. The candidate excludes production secrets, user data, operational history and the original Git history.
+Original LearnLoop code, documentation and original demo content are licensed under **AGPL-3.0-only**. See [LICENSE](LICENSE) and [NOTICE](NOTICE). Commercial use is permitted under the license; distribution and modified network services have corresponding-source and notice obligations. The software comes without warranty.
+
+Third-party software and fonts retain their own licenses; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). The page footer links to license terms, preserved notices, and the original project source snapshot for that build. Docker generates it automatically; for local development run `python tools/package_source.py . .legal` from the repository root. Installed dependencies, credentials and user data are excluded. Binary/image redistributors must also meet the source obligations of third-party components they distribute.
+
+The repository excludes production history, secrets, real user data and database backups. Publishing source does not publish a running service or learner uploads.

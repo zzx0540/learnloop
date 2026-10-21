@@ -8,7 +8,7 @@
 
 学习环适合希望围绕自己的教材、笔记和文章持续学习的人。它把资料整理、Wiki、学习计划、主动回忆、测评和 FSRS 复习连接在一起；支持多用户和自行部署。
 
-当前是等待作者审阅的公开发布候选版。界面为中文，学习日界按 Asia/Shanghai 计算。截图均来自本机虚构演示，不是实际用户记录或 AI 效果评测。
+本项目采用 **AGPL-3.0-only**。界面为中文，学习日界按 Asia/Shanghai 计算。截图均来自本机虚构演示，不是实际用户记录或 AI 效果评测。
 
 ## 先体验：无需 API 密钥
 
@@ -81,7 +81,7 @@ Markdown/TXT 入库不需要文档解析服务。PDF、DOCX 和 EPUB 有本地�
 
 本候选版已完成本机 Docker 镜像构建、全新 PostgreSQL 16 演示启动、同镜像112条测试及桌面/375px浏览器检查。另用 DeepSeek Flash 和原创 SQL 教材跑通了真实模型入库、计划、出题、批改与复习流程，详情见 [本机实跑记录](docs/local-runtime-acceptance.md)。提供对应 GitHub Actions 工作流。
 
-候选代码已上传至作者的**私人仓库**，GitHub Actions 已启用；云端检查结果以[对应提交的 Actions 记录](https://github.com/zzx0540/learnloop/actions)为准。仓库未经作者确认不会转公开。真实模型验收仅覆盖一次小型知识课程，不代表所有模型、文档格式或英语能力均已验证。系统目前要求单个后端进程，不支持直接增加副本。
+源码仓库为 [zzx0540/learnloop](https://github.com/zzx0540/learnloop)，云端检查结果以[对应提交的 Actions 记录](https://github.com/zzx0540/learnloop/actions)为准。真实模型验收仅覆盖一次小型知识课程，不代表所有模型、文档格式或英语能力均已验证。系统目前要求单个后端进程，不支持直接增加副本。
 
 遇到首次运行问题：先看 `docker compose logs --tail=100 app`，分享问题前移除密钥、文档内容与个人信息。查看 [架构与限制](docs/architecture.md)、[安全说明](SECURITY.md) 和 [后续计划](docs/ROADMAP.md)。
 
@@ -89,4 +89,8 @@ Markdown/TXT 入库不需要文档解析服务。PDF、DOCX 和 EPUB 有本地�
 
 FastAPI · PostgreSQL · React · TypeScript · Vite · FSRS。开发与隔离测试步骤见 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
-主项目许可证待作者决定；当前不声明开源许可。按现有依赖建议采用 **AGPL-3.0-only**，理由及影响见[许可证建议](docs/licensing-proposal.md)。PDF/EPUB解析依赖中包含 AGPL 组件，正式分发前需核对授权方案。参见 [依赖许可说明](docs/third-party-licenses.md)。公开候选包不含原仓库历史、生产配置、真实用户数据、数据库备份或第三方依赖源码。
+自有代码、文档和原创演示内容采用 **AGPL-3.0-only**，版权声明见 [NOTICE](NOTICE)，完整条款见 [LICENSE](LICENSE)。允许商业使用；分发和修改版网络服务须履行相应源码及声明义务，不提供担保。第三方代码和字体保留各自许可，见 [第三方声明](THIRD_PARTY_NOTICES.md)。
+
+页面底部提供许可证、第三方声明及本次构建的源码 ZIP 下载。Docker 会自动生成源码快照；本地开发可在仓库根目录运行 `python tools/package_source.py . .legal`。快照不包含密钥、依赖安装目录或用户数据；分发镜像者还须履行其包含的第三方组件的源码义务。
+
+公开仓库不含原生产仓库历史、生产配置、真实用户资料或数据库备份。源码公开不代表任何线上服务或上传资料被公开。

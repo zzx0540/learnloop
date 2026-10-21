@@ -18,6 +18,7 @@ import app.services.planner  # noqa: F401  注册任务处理器
 import app.services.vocab  # noqa: F401  注册任务处理器
 import app.services.wiki_lint  # noqa: F401  注册任务处理器
 from app.api import api_router
+from app.api.legal import router as legal_router
 from app.bootstrap import bootstrap
 from app.config import get_settings
 from app.db import SessionLocal
@@ -56,6 +57,7 @@ app = FastAPI(
 )
 
 app.include_router(api_router, prefix="/api/v1")
+app.include_router(legal_router)
 
 
 @app.middleware("http")
