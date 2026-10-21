@@ -1,3 +1,4 @@
+-c constraints.txt
 fastapi>=0.115,<1
 uvicorn[standard]>=0.30,<1
 sqlalchemy[asyncio]>=2.0,<2.1
@@ -9,7 +10,8 @@ bcrypt>=4.1,<5
 httpx>=0.27,<1
 openai>=1.40,<3
 python-multipart>=0.0.9
-pymupdf4llm>=0.0.17
+pymupdf4llm==0.0.27
+pymupdf==1.28.2
 ebooklib>=0.18
 mammoth>=1.8
 markdownify>=0.13
@@ -17,3 +19,4 @@ beautifulsoup4>=4.12
 aiofiles>=24.1
 fsrs==3.1.0
 sse-starlette>=2.1,<4
+tzdata>=2026.5

@@ -33,6 +33,6 @@ async def bootstrap(db: AsyncSession) -> None:
     if active_codes == 0:
         code = settings.initial_invite_code or secrets.token_urlsafe(8)
         db.add(InviteCode(code=code, max_uses=50))
-        logger.info("已创建初始邀请码: %s", code)
+        logger.info("已创建初始邀请码；请在管理员页面查看。")
 
     await db.commit()

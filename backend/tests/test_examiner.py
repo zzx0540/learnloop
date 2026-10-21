@@ -35,6 +35,7 @@ from app.services.examiner import (
     RecallPromptItemOut,
     RecallPromptsOut,
 )
+from app.services.stats import shanghai_date
 
 
 async def _create_course(
@@ -99,7 +100,7 @@ async def test_daily_pool_enforces_ratio_types_dedupe_and_minimum(
         status="active",
         goal_summary="测试",
         daily_minutes=45,
-        start_date=date.today() - timedelta(days=2),
+        start_date=shanghai_date() - timedelta(days=2),
         rationale_md="测试",
     )
     db.add(plan)
@@ -109,7 +110,7 @@ async def test_daily_pool_enforces_ratio_types_dedupe_and_minimum(
             plan_id=plan.id,
             course_id=course_id,
             seq=index,
-            scheduled_date=date.today() - timedelta(days=1),
+            scheduled_date=shanghai_date() - timedelta(days=1),
             type="learn",
             title=kp.title,
             est_minutes=10,
@@ -141,7 +142,7 @@ async def test_daily_pool_enforces_ratio_types_dedupe_and_minimum(
         )
     await db.commit()
 
-    pool = await examiner_svc.select_daily_pool(db, course_id, date.today())
+    pool = await examiner_svc.select_daily_pool(db, course_id, shanghai_date())
 
     assert pool is not None
     assert 5 <= len(pool) <= 8
@@ -170,7 +171,7 @@ async def test_daily_pool_enforces_ratio_types_dedupe_and_minimum(
             )
         )
     await db.commit()
-    assert await examiner_svc.select_daily_pool(db, small_id, date.today()) is None
+    assert await examiner_svc.select_daily_pool(db, small_id, shanghai_date()) is None
 
 
 def _valid_question(entry: PoolEntry, wiki_slug: str) -> QuestionGenOut:
@@ -307,7 +308,7 @@ async def test_generation_drops_untrusted_items_and_retries_below_sixty_percent(
     monkeypatch.setattr(examiner_svc.runtime, "run_structured", fake_structured)
     job = Job(
         kind="generate_quiz",
-        payload={"course_id": str(course_id), "quiz_date": date.today().isoformat()},
+        payload={"course_id": str(course_id), "quiz_date": shanghai_date().isoformat()},
         course_id=course_id,
     )
     db.add(job)
@@ -373,7 +374,7 @@ async def test_qc_drop_persists_ready_quiz_and_audit(
     monkeypatch.setattr(examiner_svc.runtime, "run_structured", fake_structured)
     job = Job(
         kind="generate_quiz",
-        payload={"course_id": str(course_id), "quiz_date": date.today().isoformat()},
+        payload={"course_id": str(course_id), "quiz_date": shanghai_date().isoformat()},
         course_id=course_id,
     )
     db.add(job)
@@ -475,7 +476,7 @@ async def test_recall_backfill_weekly_summary_and_overview(
         course_id=course_id,
         kind="daily",
         title="今日测验",
-        scheduled_date=date.today(),
+        scheduled_date=shanghai_date(),
         status="ready",
     )
     db.add(quiz)

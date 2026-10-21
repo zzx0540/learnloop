@@ -452,6 +452,7 @@ async def test_backfill_wiki_is_versioned_and_idempotent(
         chat_id=chat.id,
         role="user",
         content_md="间隔效应为什么有效？",
+        created_at=utcnow() - timedelta(seconds=1),
         scope_class="in_syllabus",
         matched_kp_ids=[kp.id],
     )

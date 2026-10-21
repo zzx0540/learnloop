@@ -1,35 +1,37 @@
+import { lazy, Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 
 import { AuthGuard } from "./lib/auth";
-import AdminCosts from "./pages/AdminCosts";
-import Dashboard from "./pages/Dashboard";
-import Login from "./pages/Login";
-import MarketPage from "./pages/MarketPage";
-import Register from "./pages/Register";
-import RewardsPage from "./pages/RewardsPage";
-import CoursePage from "./pages/course/CoursePage";
-import ExamPage from "./pages/course/ExamPage";
-import GraphTab from "./pages/course/GraphTab";
-import KbTab from "./pages/course/KbTab";
-import LanguageProfileTab from "./pages/course/LanguageProfileTab";
-import LearnPage from "./pages/course/LearnPage";
-import OverviewTab from "./pages/course/OverviewTab";
-import PlanTab from "./pages/course/PlanTab";
-import QaTab from "./pages/course/QaTab";
-import ReadingPage from "./pages/course/ReadingPage";
-import ReadingTab from "./pages/course/ReadingTab";
-import QuizPage from "./pages/course/QuizPage";
-import ReviewPage from "./pages/course/ReviewPage";
-import VocabTab from "./pages/course/VocabTab";
-import WikiTab from "./pages/course/WikiTab";
-import WritingPage from "./pages/course/WritingPage";
-import WritingTab from "./pages/course/WritingTab";
-import DailyNotesPrintPage from "./pages/print/DailyNotesPrintPage";
-import OutlinePrintPage from "./pages/print/OutlinePrintPage";
-import QuizPrintPage from "./pages/print/QuizPrintPage";
+const AdminCosts = lazy(() => import("./pages/AdminCosts"));
+const Dashboard = lazy(() => import("./pages/Dashboard"));
+const Login = lazy(() => import("./pages/Login"));
+const MarketPage = lazy(() => import("./pages/MarketPage"));
+const Register = lazy(() => import("./pages/Register"));
+const RewardsPage = lazy(() => import("./pages/RewardsPage"));
+const CoursePage = lazy(() => import("./pages/course/CoursePage"));
+const ExamPage = lazy(() => import("./pages/course/ExamPage"));
+const GraphTab = lazy(() => import("./pages/course/GraphTab"));
+const KbTab = lazy(() => import("./pages/course/KbTab"));
+const LanguageProfileTab = lazy(() => import("./pages/course/LanguageProfileTab"));
+const LearnPage = lazy(() => import("./pages/course/LearnPage"));
+const OverviewTab = lazy(() => import("./pages/course/OverviewTab"));
+const PlanTab = lazy(() => import("./pages/course/PlanTab"));
+const QaTab = lazy(() => import("./pages/course/QaTab"));
+const ReadingPage = lazy(() => import("./pages/course/ReadingPage"));
+const ReadingTab = lazy(() => import("./pages/course/ReadingTab"));
+const QuizPage = lazy(() => import("./pages/course/QuizPage"));
+const ReviewPage = lazy(() => import("./pages/course/ReviewPage"));
+const VocabTab = lazy(() => import("./pages/course/VocabTab"));
+const WikiTab = lazy(() => import("./pages/course/WikiTab"));
+const WritingPage = lazy(() => import("./pages/course/WritingPage"));
+const WritingTab = lazy(() => import("./pages/course/WritingTab"));
+const DailyNotesPrintPage = lazy(() => import("./pages/print/DailyNotesPrintPage"));
+const OutlinePrintPage = lazy(() => import("./pages/print/OutlinePrintPage"));
+const QuizPrintPage = lazy(() => import("./pages/print/QuizPrintPage"));
 
 export default function App() {
   return (
+    <Suspense fallback={<div className="p-8 text-center text-slate-500">正在加载学习空间…</div>}>
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
@@ -160,5 +162,6 @@ export default function App() {
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
+    </Suspense>
   );
 }

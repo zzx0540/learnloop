@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Alert, Button, Card, Input, Label } from "../components/ui";
 import { api, ApiError, type UserOut } from "../lib/api";
 import { useSetMe } from "../lib/auth";
+import { DemoNotice } from "../components/DemoNotice";
 import { BrandMark } from "../components/BrandMark";
 
 export default function Login() {
@@ -33,6 +34,7 @@ export default function Login() {
     <div className="flex min-h-screen items-center justify-center px-4">
       <div className="w-full max-w-sm">
         <BrandMark />
+        <DemoNotice login />
         <Card>
           <h1 className="mb-1 text-lg font-semibold">欢迎回来</h1>
           <p className="mb-5 text-sm text-slate-500">登录你的学习空间</p>

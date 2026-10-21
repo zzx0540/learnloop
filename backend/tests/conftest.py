@@ -1,6 +1,17 @@
 import os
+import tempfile
 
-os.environ.setdefault("FILES_DIR", "/tmp/learnloop-test-files")
+from tests.safety import require_test_database
+
+TEST_DATABASE_URL = require_test_database(
+    os.environ.get("TEST_DATABASE_URL", ""), os.environ.get("LEARNLOOP_ALLOW_TEST_RESET", "")
+)
+# Bind service-owned sessions as well as route dependencies to the disposable database.
+os.environ["DATABASE_URL"] = TEST_DATABASE_URL
+os.environ["DEMO_MODE"] = "false"
+_test_files = tempfile.TemporaryDirectory(prefix="learnloop-test-")
+
+os.environ["FILES_DIR"] = _test_files.name
 os.environ["COOKIE_SECURE"] = "false"
 
 from collections.abc import AsyncGenerator  # noqa: E402
@@ -17,10 +28,6 @@ from sqlalchemy.pool import NullPool  # noqa: E402
 from app.db import get_db  # noqa: E402
 from app.main import app  # noqa: E402
 from app.models import Base, InviteCode, User  # noqa: E402
-
-TEST_DATABASE_URL = os.environ.get(
-    "TEST_DATABASE_URL", "postgresql+asyncpg://learnloop:learnloop@pg:5432/learnloop_test"
-)
 
 test_engine = create_async_engine(TEST_DATABASE_URL, poolclass=NullPool)
 TestSession = async_sessionmaker(test_engine, expire_on_commit=False)

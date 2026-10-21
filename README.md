@@ -1,40 +1,92 @@
 # 学习环 LearnLoop
 
-多用户 AI 学习平台，包含文档知识库、Wiki、学习计划、间隔复习、测评、知识图谱、英语阅读与写作、课程市场。
+**把自己的学习资料，变成每天可执行的学习计划与间隔复习。**
 
-后端使用 FastAPI、SQLAlchemy、PostgreSQL；前端使用 React、TypeScript、Vite。模型调用由 AgentRuntime 统一管理。
+[English](README.en.md) · [演示路线](docs/demo-guide.md) · [架构与限制](docs/architecture.md) · [贡献方式](CONTRIBUTING.md)
 
-## 本地启动
+![学习计划：原创 SQL 示例课程](docs/images/plan.png)
 
-需要 Docker 和 Docker Compose。以下步骤只用于新建的独立环境。
+学习环适合希望围绕自己的教材、笔记和文章持续学习的人。它把资料整理、Wiki、学习计划、主动回忆、测评和 FSRS 复习连接在一起；支持多用户和自行部署。
 
-1. 将 `.env.example` 复制为 `.env`，替换数据库密码、管理员密码和邀请码。
-2. 填写模型服务 API 地址、密钥与实际可用的 `MODEL_LOW`、`MODEL_MEDIUM`、`MODEL_HIGH`；视觉模型和 MinerU 按需配置。示例不包含可用凭据，AI 功能需要自行配置服务。
-3. 执行 `docker compose up -d --build`。
-4. 打开 `http://localhost:8080`，使用自行配置的管理员账号登录。
-5. 执行 `curl http://localhost:8080/api/health` 检查服务状态。
+当前是等待作者审阅的公开发布候选版。界面为中文，学习日界按 Asia/Shanghai 计算。截图均来自本机虚构演示，不是实际用户记录或 AI 效果评测。
 
-首次启动执行 Alembic 迁移。数据库与上传文件分别保存在 `pgdata` 和 `files` 卷中；不要对有数据的实例执行 `docker compose down -v`。
+## 先体验：无需 API 密钥
 
-## 部署
+需要 Docker Engine/Desktop 与 Docker Compose v2；首次启动需要联网下载镜像和依赖。
 
-`deploy/` 为可选运维示例，不在启动时自动执行。`sync.sh` 必须显式设置 `LEARNLOOP_SERVER`，且使用 `rsync --delete`：仅对自己新建的专用部署目录使用。默认远端目录为 `/opt/learnloop`。
+```bash
+docker compose -f docker-compose.demo.yml up -d --build
+```
 
-Nginx 示例域名为 `learn.example.com`，证书路径需要按自己的域名配置。公网部署应配置 HTTPS，并设置 `COOKIE_SECURE=true`。不要使用示例密码部署。
+打开 **http://localhost:8088**，账号 `demo`，密码 `learnloop-demo-only`。
 
-`backup.sh` 仅备份数据库，并删除超过14天的匹配备份；不会备份上传文件。使用前自行确认路径、保留策略，并另行备份 `files` 卷。
+演示包含人工预置的原创 SQL 教材、三天计划、Wiki、图谱与复习卡。可浏览和翻卡，生成、上传、评分与其他保存操作关闭。不会调用模型；演示服务位于独立内部网络，只监听本机端口。预置示例不代表模型生成质量。
 
-## 开发与验证
+[查看实际浏览器录屏（WebM，无配音）](docs/demo-walkthrough.webm)
 
-- `backend/`：API、业务逻辑、Alembic 迁移、测试。
-- `frontend/`：界面与前端构建配置。
-- 前端构建：在 `frontend` 执行 `npm ci` 后执行 `npm run build`。
-- 后端测试：使用独立 PostgreSQL 测试库和隔离环境；先检查 `backend/tests/conftest.py` 的数据库初始化逻辑，勿对生产数据库运行测试。
+停止演示并保留其数据：
 
-本候选副本仅做公开内容整理与静态检查，未重新执行完整构建和业务回归；历史生产验收不代表本副本已经通过测试。
+```bash
+docker compose -f docker-compose.demo.yml stop
+```
 
-## 公开范围与许可
+## 创建自己的实例
 
-本副本不包含生产配置、用户数据、数据库备份、运维记录、截图及原仓库 Git 历史。部署地址已替换为示例。
+需要 Docker Compose 和 Python 3.10+（只用于生成本地配置；后端容器使用 Python 3.12）。
 
-项目许可证尚待作者确定；当前不声明任何开源许可。依赖保留其各自许可证，正式发布前还需核查依赖许可兼容性。
+```bash
+python tools/setup.py
+```
+
+该命令生成带随机数据库密码、管理员密码和邀请码的 `.env`，不会覆盖已有文件，也不把密码打印到终端。用本机编辑器打开 `.env`，填写：
+
+| 配置 | 含义 |
+| --- | --- |
+| `DEEPSEEK_BASE_URL` | OpenAI-compatible Chat Completions 服务地址；变量名保留历史兼容性 |
+| `DEEPSEEK_API_KEY` | 自己的服务密钥 |
+| `MODEL_LOW` | 服务商账户实际可用的模型 ID |
+
+普通知识课程可先用一个模型；未填写的中、高档模型继承低档模型。需要不同服务时再填写 `MODEL_MEDIUM`、`MODEL_HIGH`、`HIGH_BASE_URL` 与 `HIGH_API_KEY`。配置一个兼容地址不代表其支持所有扩展功能。
+
+```bash
+docker compose up -d --build
+```
+
+打开 **http://localhost:8080**，用 `.env` 中的管理员账号登录。初次启动自动执行 Alembic 迁移。进入课程页创建知识课程，上传 [`examples/sql-basics.md`](examples/sql-basics.md)，等待入库，再与规划师沟通目标并生成计划。
+
+Markdown/TXT 入库不需要文档解析服务。PDF、DOCX 和 EPUB 有本地解析路径；旧版 Office 格式及部分复杂文档需要可选 MinerU 服务。英文自动找文章需要上游支持联网检索扩展，默认关闭，可先手动导入材料。
+
+## 能做什么
+
+| 环节 | 实现 |
+| --- | --- |
+| 整理资料 | 文档解析、保留原件、版本化 Wiki，长文入库可断点续跑 |
+| 安排学习 | 根据目标生成计划，查看知识点、学习材料和概念关联 |
+| 练习反馈 | 日常测验、阶段测评、答案解析、薄弱点记录 |
+| 持续复习 | FSRS 复习卡、主动回忆、学习活动记录 |
+| 英语学习 | 能力测评、词汇、阅读与写作路径，部分功能依赖模型服务能力 |
+| 自行管理 | 邀请注册、按课程隔离、调用记录、费用估算、课程市场 |
+
+这些功能未证明能提升特定考试成绩；模型生成内容和评分需要使用者核对。
+
+## 费用与数据
+
+- 软件自行部署不代表 AI 免费。文档文本、问题和答案可能发送给你配置的模型或解析服务。
+- 所有课程，包括管理员课程，默认受每日 token 额度约束；这不是严格的金额上限。建议同时设置服务商侧消费限额。
+- 模型价格默认未配置，成本页会显示“未知”。在管理 → 设置填写自己服务的价格，单位为美元/百万 token。已知部分只是估算，账单以服务商为准；旧记录不自动重新计价。
+- `pgdata` 保存数据库，`files` 保存上传资料，两者都需要备份。不要对含真实资料的实例执行删除卷命令。
+- 默认只监听本机。公开联网前配置 HTTPS、`COOKIE_SECURE=true`、访问控制及备份；演示的公开样例口令不能用于真实实例。
+
+## 验证状态与限制
+
+本候选版在本机 Python 3.12 / PostgreSQL 15 的独立数据库上运行测试，并完成前端构建和桌面/375px浏览器检查，详情见 [验证记录](docs/verification.md)。提供 PostgreSQL 16、前后端测试及 Docker 演示的 GitHub Actions 工作流。
+
+**当前主机没有 Docker 引擎，因此本轮没有执行 Docker 镜像构建或 GitHub Actions；也没有使用真实密钥执行付费模型验收。** 实际发布前仍需完成这两项。系统目前要求单个后端进程，不支持直接增加副本。
+
+遇到首次运行问题：先看 `docker compose logs --tail=100 app`，分享问题前移除密钥、文档内容与个人信息。查看 [架构与限制](docs/architecture.md)、[安全说明](SECURITY.md) 和 [后续计划](docs/ROADMAP.md)。
+
+## 开发与许可
+
+FastAPI · PostgreSQL · React · TypeScript · Vite · FSRS。开发与隔离测试步骤见 [CONTRIBUTING.md](CONTRIBUTING.md)。
+
+主项目许可证待作者决定；当前不声明开源许可。PDF/EPUB解析依赖中包含 AGPL 组件，正式分发前需核对授权方案。参见 [依赖许可说明](docs/third-party-licenses.md)。公开候选包不含原仓库历史、生产配置、真实用户数据、数据库备份或第三方依赖源码。

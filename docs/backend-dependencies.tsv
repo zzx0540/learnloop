@@ -1,0 +1,59 @@
+Package	Version	License metadata (not a legal conclusion)
+EbookLib	0.20	GNU Affero General Public License
+Mako	1.4.3	MIT
+MarkupSafe	3.0.4	BSD-3-Clause
+PyYAML	6.0.3	MIT
+Pygments	2.21.0	BSD-2-Clause
+SQLAlchemy	2.0.55	MIT
+aiofiles	25.1.0	Apache-2.0
+alembic	1.20.0	MIT
+annotated-doc	0.0.5	MIT
+annotated-types	0.8.0	MIT
+anyio	4.15.1	MIT
+asyncpg	0.32.0	Apache-2.0
+bcrypt	4.3.0	Apache-2.0
+beautifulsoup4	4.15.0	MIT License
+certifi	2026.10.19	MPL-2.0
+click	8.5.0	BSD-3-Clause
+cobble	0.1.4	BSD License
+colorama	0.4.6	BSD License
+distro	1.9.0	Apache License, Version 2.0
+fastapi	0.156.4	MIT
+fsrs	3.1.0	See installed distribution license file
+greenlet	3.5.6	MIT AND PSF-2.0
+h11	0.16.0	MIT
+httpcore	1.0.9	BSD-3-Clause
+httptools	0.9.0	MIT
+httpx	0.28.1	BSD-3-Clause
+idna	3.20	BSD-3-Clause
+iniconfig	2.3.1	MIT
+jiter	0.17.0	MIT
+lxml	6.1.3	BSD-3-Clause
+mammoth	1.13.0	BSD-2-Clause
+markdownify	1.2.3	MIT License
+openai	2.54.0	Apache-2.0
+opentelemetry-api	1.45.1	Apache-2.0
+packaging	26.3	Apache-2.0 OR BSD-2-Clause
+pluggy	1.7.0	MIT
+pydantic	2.14.1	MIT
+pydantic-settings	2.16.1	MIT
+pydantic_core	2.50.1	MIT
+pymupdf	1.28.2	Dual Licensed - GNU AFFERO GPL 3.0 or Artifex Commercial License
+pymupdf4llm	0.0.27	Dual Licensed - GNU AFFERO GPL 3.0 or Artifex Commercial License
+pytest	9.1.1	MIT
+pytest-asyncio	1.4.0	Apache-2.0
+python-dotenv	1.2.4	BSD-3-Clause
+python-multipart	0.0.32	Apache-2.0
+ruff	0.17.1	MIT
+six	1.17.0	MIT
+sniffio	1.3.1	MIT OR Apache-2.0
+soupsieve	3.0.3	MIT
+sse-starlette	3.5.0	BSD-3-Clause
+starlette	1.9.0	BSD-3-Clause
+tqdm	4.70.1	MPL-2.0 AND MIT
+typing-inspection	0.4.4	MIT
+typing_extensions	4.16.0	PSF-2.0
+tzdata	2026.5	Apache-2.0
+uvicorn	0.54.0	BSD-3-Clause
+watchfiles	1.3.0	MIT
+websockets	17.3	BSD-3-Clause

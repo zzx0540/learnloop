@@ -6,7 +6,7 @@ from app.agents.runtime import AgentRuntime, BudgetExceeded
 from app.models import AppSetting, Course, LlmCallLog, User
 
 
-async def test_budget_exempts_admin_courses_only(
+async def test_budget_applies_to_admin_and_student_courses(
     db: AsyncSession, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     session_factory = async_sessionmaker(db.bind, expire_on_commit=False)
@@ -37,7 +37,8 @@ async def test_budget_exempts_admin_courses_only(
     await db.commit()
 
     runtime = AgentRuntime.__new__(AgentRuntime)
-    await runtime._check_budget(admin_course.id)
+    with pytest.raises(BudgetExceeded):
+        await runtime._check_budget(admin_course.id)
     await runtime._check_budget(allowed_course.id)
     await runtime._check_budget(None)
     with pytest.raises(BudgetExceeded):

@@ -41,7 +41,7 @@ export default function WikiTab() {
   });
 
   const currentSlug = slug ?? "wiki-index";
-  const { data: page } = useQuery<WikiPageOut>({
+  const { data: page, isError: pageFailed } = useQuery<WikiPageOut>({
     queryKey: ["wiki-page", courseId, currentSlug],
     queryFn: () => api.get(`/api/v1/courses/${courseId}/wiki/pages/${currentSlug}`),
   });
@@ -278,7 +278,7 @@ export default function WikiTab() {
               <Markdown content={page.content_md} onWikiLink={goTo} />
             </>
           ) : (
-            <div className="p-8 text-center text-sm text-slate-400">加载中…</div>
+            <div className="p-8 text-center text-sm text-slate-400">{pageFailed ? "暂时无法加载此页，请从左侧选择已有页面，或检查资料是否已完成入库。" : "加载中…"}</div>
           )}
         </Card>
       </div>

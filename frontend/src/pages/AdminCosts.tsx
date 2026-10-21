@@ -39,13 +39,13 @@ function shanghaiDateKey(date: Date): string {
 }
 
 function CostPanel() {
-  const { data } = useQuery<{ items: LlmCostItem[]; total_cost_usd: number }>({
+  const { data } = useQuery<{ items: LlmCostItem[]; total_cost_usd: number | null; known_cost_usd: number; unpriced_calls: number }>({
     queryKey: ["llm-costs"],
     queryFn: () => api.get("/api/v1/admin/llm-costs?days=14"),
   });
   const daily = useMemo(() => {
     const sums = new Map<string, number>();
-    for (const item of data?.items ?? []) sums.set(item.day, (sums.get(item.day) ?? 0) + item.cost_usd);
+    for (const item of data?.items ?? []) sums.set(item.day, (sums.get(item.day) ?? 0) + item.known_cost_usd);
     return Array.from({ length: 14 }, (_, index) => {
       const date = new Date();
       date.setDate(date.getDate() - (13 - index));
@@ -59,11 +59,11 @@ function CostPanel() {
   return (
     <div>
       <h2 className="text-lg font-bold text-slate-900">LLM 成本看板</h2>
-      <p className="mt-1 text-sm text-slate-500">近 14 天，总成本约 ${data?.total_cost_usd?.toFixed(4) ?? "0"}（缓存命中率目标 ≥60%）</p>
+      <p className="mt-1 text-sm text-slate-500">近 14 天，已知价格部分估算 ${data?.known_cost_usd?.toFixed(4) ?? "—"}。{data?.unpriced_calls ? `另有 ${data.unpriced_calls} 次调用未配置价格，总费用未知。` : "最终费用以上游账单为准。"}</p>
 
       <Card className="mt-5 min-w-0 p-4">
         <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
-          <div className="font-semibold text-slate-800">每日成本</div>
+          <div className="font-semibold text-slate-800">每日已知价格部分</div>
           <div className="min-h-5 text-sm text-indigo-600" aria-live="polite">
             {activeDay ? `${activeDay.day} · $${activeDay.cost.toFixed(4)}` : "悬停柱形查看数值"}
           </div>
@@ -102,7 +102,7 @@ function CostPanel() {
                 <td className="px-3 py-2">{item.day}</td><td className="px-3 py-2">{item.model}</td><td className="px-3 py-2">{item.agent}</td>
                 <td className="px-3 py-2 text-right">{item.calls}</td><td className="px-3 py-2 text-right">{item.prompt_tokens.toLocaleString()}</td>
                 <td className="px-3 py-2 text-right">{(item.cache_hit_ratio * 100).toFixed(0)}%</td>
-                <td className="px-3 py-2 text-right">{item.completion_tokens.toLocaleString()}</td><td className="px-3 py-2 text-right">{item.cost_usd.toFixed(4)}</td>
+                <td className="px-3 py-2 text-right">{item.completion_tokens.toLocaleString()}</td><td className="px-3 py-2 text-right">{item.cost_usd === null ? "未知（未定价）" : item.cost_usd.toFixed(4)}</td>
                 <td className="px-3 py-2 text-right">{item.errors}</td>
               </tr>
             ))}

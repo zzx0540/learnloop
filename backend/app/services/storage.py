@@ -48,7 +48,7 @@ def images_dir(course_id: uuid.UUID) -> Path:
 
 
 def rel_to_course(course_id: uuid.UUID, abs_path: Path) -> str:
-    return str(abs_path.relative_to(course_dir(course_id)))
+    return abs_path.relative_to(course_dir(course_id)).as_posix()
 
 
 def file_url(course_id: uuid.UUID, abs_path: Path) -> str:

@@ -29,7 +29,7 @@ from app.services.points import (
     multiplier,
     points_balance,
 )
-from app.services.stats import award_study_buckets
+from app.services.stats import award_study_buckets, shanghai_date
 
 
 async def _create_course(client: AsyncClient, name: str = "积分测试课") -> dict:
@@ -78,7 +78,7 @@ async def test_points_summary_preserves_streak_but_previews_today_multiplier(
     db: AsyncSession,
     logged_in: User,
 ) -> None:
-    today = date.today()
+    today = shanghai_date()
     db.add_all(
         [
             UserDailyStat(user_id=logged_in.id, date=today - timedelta(days=2), study_seconds=1),
@@ -170,7 +170,7 @@ async def test_item_review_and_quiz_award_paths(
         status="active",
         goal_summary="测试",
         daily_minutes=30,
-        start_date=date.today(),
+        start_date=shanghai_date(),
         rationale_md="测试",
     )
     db.add(plan)
@@ -179,7 +179,7 @@ async def test_item_review_and_quiz_award_paths(
         plan_id=plan.id,
         course_id=course_id,
         seq=1,
-        scheduled_date=date.today(),
+        scheduled_date=shanghai_date(),
         type="learn",
         title="完成学习条目",
         est_minutes=10,
@@ -229,14 +229,14 @@ async def test_item_review_and_quiz_award_paths(
         course_id=course_id,
         kind="daily",
         title="每日积分卷",
-        scheduled_date=date.today(),
+        scheduled_date=shanghai_date(),
         status="ready",
     )
     stage_quiz = Quiz(
         course_id=course_id,
         kind="stage",
         title="阶段积分卷",
-        scheduled_date=date.today(),
+        scheduled_date=shanghai_date(),
         status="ready",
     )
     db.add_all([daily_quiz, stage_quiz])

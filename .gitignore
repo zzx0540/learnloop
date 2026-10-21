@@ -28,3 +28,6 @@ backups/
 *.sql
 *.sql.gz
 *.log
+.qa/
+playwright-report/
+test-results/

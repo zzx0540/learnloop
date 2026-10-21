@@ -5,7 +5,7 @@ from typing import Any
 
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, Field
-from sqlalchemy import Integer, cast, delete, func, select
+from sqlalchemy import Integer, case, cast, delete, func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.deps import require_admin
@@ -38,7 +38,7 @@ def _validate_setting(key: str, value: Any) -> Any:
     }:
         return _validate_positive_int(key, value)
     if key == "llm_pricing":
-        if not isinstance(value, dict) or not value:
+        if not isinstance(value, dict):
             raise HTTPException(status_code=400, detail="llm_pricing 格式不正确")
         for model, prices in value.items():
             if not isinstance(model, str) or not isinstance(prices, dict):
@@ -97,9 +97,7 @@ async def list_users(db: AsyncSession = Depends(get_db)) -> list[dict]:
 
 
 @router.post("/admin/users/{user_id}/reset-password")
-async def reset_user_password(
-    user_id: uuid.UUID, db: AsyncSession = Depends(get_db)
-) -> dict:
+async def reset_user_password(user_id: uuid.UUID, db: AsyncSession = Depends(get_db)) -> dict:
     user = await db.get(User, user_id)
     if user is None:
         raise HTTPException(status_code=404, detail="用户不存在")
@@ -117,9 +115,7 @@ async def get_admin_settings(db: AsyncSession = Depends(get_db)) -> dict:
 
 
 @router.patch("/admin/settings")
-async def update_admin_settings(
-    data: dict[str, Any], db: AsyncSession = Depends(get_db)
-) -> dict:
+async def update_admin_settings(data: dict[str, Any], db: AsyncSession = Depends(get_db)) -> dict:
     unknown = set(data) - set(DEFAULTS)
     if unknown:
         raise HTTPException(status_code=400, detail=f"不允许修改设置项：{sorted(unknown)[0]}")
@@ -131,17 +127,11 @@ async def update_admin_settings(
 
 @router.get("/admin/rewards", response_model=list[RewardOut])
 async def list_admin_rewards(db: AsyncSession = Depends(get_db)) -> list[Reward]:
-    return list(
-        (
-            await db.execute(select(Reward).order_by(Reward.created_at.desc()))
-        ).scalars()
-    )
+    return list((await db.execute(select(Reward).order_by(Reward.created_at.desc()))).scalars())
 
 
 @router.post("/admin/rewards", response_model=RewardOut)
-async def create_reward(
-    data: RewardCreate, db: AsyncSession = Depends(get_db)
-) -> Reward:
+async def create_reward(data: RewardCreate, db: AsyncSession = Depends(get_db)) -> Reward:
     reward = Reward(**data.model_dump())
     db.add(reward)
     await db.commit()
@@ -177,7 +167,10 @@ async def llm_costs(days: int = 7, db: AsyncSession = Depends(get_db)) -> dict:
                 func.sum(LlmCallLog.prompt_tokens).label("prompt"),
                 func.sum(LlmCallLog.cached_tokens).label("cached"),
                 func.sum(LlmCallLog.completion_tokens).label("completion"),
-                func.sum(LlmCallLog.cost_estimate).label("cost"),
+                func.sum(case((LlmCallLog.cost_estimate >= 0, LlmCallLog.cost_estimate), else_=0)).label(
+                    "cost"
+                ),
+                func.sum(cast(LlmCallLog.cost_estimate < 0, Integer)).label("unpriced"),
                 func.sum(cast(LlmCallLog.status != "ok", Integer)).label("errors"),
             )
             .where(LlmCallLog.created_at >= since)
@@ -194,7 +187,9 @@ async def llm_costs(days: int = 7, db: AsyncSession = Depends(get_db)) -> dict:
             "prompt_tokens": int(r.prompt or 0),
             "cached_tokens": int(r.cached or 0),
             "completion_tokens": int(r.completion or 0),
-            "cost_usd": float(r.cost or 0),
+            "cost_usd": None if r.unpriced else float(r.cost or 0),
+            "known_cost_usd": float(r.cost or 0),
+            "unpriced_calls": int(r.unpriced or 0),
             "errors": int(r.errors or 0),
             "cache_hit_ratio": round((r.cached or 0) / r.prompt, 3) if r.prompt else 0,
         }
@@ -202,5 +197,9 @@ async def llm_costs(days: int = 7, db: AsyncSession = Depends(get_db)) -> dict:
     ]
     return {
         "items": items,
-        "total_cost_usd": round(sum(i["cost_usd"] for i in items), 4),
+        "total_cost_usd": None
+        if any(i["unpriced_calls"] for i in items)
+        else round(sum(i["known_cost_usd"] for i in items), 4),
+        "known_cost_usd": round(sum(i["known_cost_usd"] for i in items), 4),
+        "unpriced_calls": sum(i["unpriced_calls"] for i in items),
     }

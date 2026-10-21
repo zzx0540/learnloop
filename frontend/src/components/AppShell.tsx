@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { api } from "../lib/api";
 import { useMe, useSetMe } from "../lib/auth";
 import { Button } from "./ui";
+import { DemoNotice } from "./DemoNotice";
 
 export function AppShell({ children }: { children: ReactNode }) {
   const { data: me } = useMe();
@@ -54,7 +55,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           </div>
         </div>
       </header>
-      <main className="mx-auto w-full min-w-0 max-w-6xl px-4 py-8">{children}</main>
+      <main className="mx-auto w-full min-w-0 max-w-6xl px-4 py-8"><DemoNotice />{children}</main>
     </div>
   );
 }

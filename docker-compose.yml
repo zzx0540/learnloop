@@ -2,12 +2,12 @@ services:
   app:
     build: .
     restart: unless-stopped
+    init: true
     ports:
-      - "8080:8000"
+      - "127.0.0.1:${LEARNLOOP_PORT:-8080}:8000"
     env_file: .env
     environment:
-      DATABASE_URL: postgresql+asyncpg://learnloop:${POSTGRES_PASSWORD}@pg:5432/learnloop
-      TEST_DATABASE_URL: postgresql+asyncpg://learnloop:${POSTGRES_PASSWORD}@pg:5432/learnloop_test
+      DATABASE_URL: postgresql+asyncpg://learnloop:${POSTGRES_PASSWORD:?Run python tools/setup.py first}@pg:5432/learnloop
     depends_on:
       pg:
         condition: service_healthy
@@ -33,11 +33,11 @@ services:
       start_period: 20s
 
   pg:
-    image: docker.m.daocloud.io/library/postgres:16-alpine
+    image: postgres:16-alpine
     restart: unless-stopped
     environment:
       POSTGRES_USER: learnloop
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Run python tools/setup.py first}
       POSTGRES_DB: learnloop
     command: postgres -c shared_buffers=256MB -c work_mem=16MB -c max_connections=30
     volumes:

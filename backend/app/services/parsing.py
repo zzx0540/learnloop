@@ -67,14 +67,14 @@ def _parse_pdf(path: Path, course_id: uuid.UUID, doc_id: uuid.UUID) -> ParseResu
     import pymupdf4llm
 
     img_dir = images_dir(course_id)
-    md = pymupdf4llm.to_markdown(
-        str(path),
-        write_images=True,
-        image_path=str(img_dir),
-        image_format="png",
-        dpi=110,
-    )
     with pymupdf.open(str(path)) as pdf:
+        md = pymupdf4llm.to_markdown(
+            pdf,
+            write_images=True,
+            image_path=str(img_dir),
+            image_format="png",
+            dpi=110,
+        )
         page_count = pdf.page_count
 
     prefix = str(img_dir)

@@ -28,6 +28,13 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s %(name)s %(levelname
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    if get_settings().demo_mode:
+        from app.demo import seed_demo
+
+        async with SessionLocal() as db:
+            await seed_demo(db)
+        yield
+        return
     async with SessionLocal() as db:
         await bootstrap(db)
     await recover_on_startup()
@@ -49,6 +56,25 @@ app = FastAPI(
 )
 
 app.include_router(api_router, prefix="/api/v1")
+
+
+@app.middleware("http")
+async def demo_write_guard(request: Request, call_next):
+    if (
+        get_settings().demo_mode
+        and request.method not in {"GET", "HEAD", "OPTIONS"}
+        and request.url.path not in {"/api/v1/auth/login", "/api/v1/auth/logout"}
+    ):
+        return JSONResponse(
+            status_code=403,
+            content={"detail": "当前为预置只读演示，生成、上传和保存已关闭。请按 README 创建自己的实例。"},
+        )
+    return await call_next(request)
+
+
+@app.get("/api/info")
+async def public_info():
+    return {"demo_mode": get_settings().demo_mode}
 
 
 @app.exception_handler(Exception)

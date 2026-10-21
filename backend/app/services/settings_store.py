@@ -10,11 +10,7 @@ DEFAULTS: dict[str, Any] = {
     # 每课程每日 token 预算（prompt+completion 合计）；书籍入库是大头，预算耗尽任务会延后 1 小时
     "llm_daily_token_budget_per_course": 2_000_000,
     # 各模型价格（美元 / 百万 token）：miss=未命中输入 hit=缓存命中输入 out=输出
-    "llm_pricing": {
-        "deepseek-v4-flash": {"miss": 0.14, "hit": 0.0028, "out": 0.28},
-        "deepseek-v4-pro": {"miss": 0.435, "hit": 0.003625, "out": 0.87},
-        "gpt-5.6-sol": {"miss": 5.0, "hit": 0.5, "out": 15.0},
-    },
+    "llm_pricing": {},
     # 上传限制
     "upload_max_mb": 100,
     "upload_quota_mb_per_user": 2048,

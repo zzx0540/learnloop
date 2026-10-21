@@ -7,6 +7,9 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
 
     env: str = "dev"
+    demo_mode: bool = False
+    llm_thinking_parameter: bool = False
+    llm_web_search_enabled: bool = False
     database_url: str = "postgresql+asyncpg://learnloop:learnloop@pg:5432/learnloop"
     static_dir: str = "/srv/static"
     files_dir: str = "/data/files"
@@ -24,9 +27,9 @@ class Settings(BaseSettings):
     high_api_key: str = ""
     mineru_api_key: str = ""
     mineru_base_url: str = "https://mineru.net"
-    model_low: str = "deepseek-v4-flash"
-    model_medium: str = "deepseek-v4-pro"
-    model_high: str = "gpt-5.6"
+    model_low: str = ""
+    model_medium: str = ""
+    model_high: str = ""
     model_vision: str = ""
 
 

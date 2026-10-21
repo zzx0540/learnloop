@@ -729,7 +729,9 @@ export interface LlmCostItem {
   prompt_tokens: number;
   cached_tokens: number;
   completion_tokens: number;
-  cost_usd: number;
+  cost_usd: number | null;
+  known_cost_usd: number;
+  unpriced_calls: number;
   errors: number;
   cache_hit_ratio: number;
 }
