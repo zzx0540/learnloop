@@ -81,7 +81,7 @@ Markdown/TXT 入库不需要文档解析服务。PDF、DOCX 和 EPUB 有本地�
 
 本候选版已完成本机 Docker 镜像构建、全新 PostgreSQL 16 演示启动、同镜像112条测试及桌面/375px浏览器检查。另用 DeepSeek Flash 和原创 SQL 教材跑通了真实模型入库、计划、出题、批改与复习流程，详情见 [本机实跑记录](docs/local-runtime-acceptance.md)。提供对应 GitHub Actions 工作流。
 
-**GitHub Actions 云端尚未执行**，需要在作者授权的仓库中验证。真实模型验收仅覆盖一次小型知识课程，不代表所有模型、文档格式或英语能力均已验证。系统目前要求单个后端进程，不支持直接增加副本。
+候选代码已上传至作者的**私人仓库**，GitHub Actions 已启用；云端检查结果以[对应提交的 Actions 记录](https://github.com/zzx0540/learnloop/actions)为准。仓库未经作者确认不会转公开。真实模型验收仅覆盖一次小型知识课程，不代表所有模型、文档格式或英语能力均已验证。系统目前要求单个后端进程，不支持直接增加副本。
 
 遇到首次运行问题：先看 `docker compose logs --tail=100 app`，分享问题前移除密钥、文档内容与个人信息。查看 [架构与限制](docs/architecture.md)、[安全说明](SECURITY.md) 和 [后续计划](docs/ROADMAP.md)。
 

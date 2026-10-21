@@ -54,7 +54,7 @@ Back up both the PostgreSQL and uploaded-file volumes. The default port binds to
 
 ## Review status
 
-The Docker image was built locally; a fresh PostgreSQL 16 demo and 112 same-image backend tests passed, along with desktop/mobile browser checks. One bounded live DeepSeek Flash run covered original SQL material ingestion, planning, quiz generation, grading and review. See [runtime acceptance](docs/local-runtime-acceptance.md) and [earlier verification](docs/verification.md). **GitHub-hosted Actions have not run.** This small live sample does not validate every provider, document format or language-learning flow.
+The Docker image was built locally; a fresh PostgreSQL 16 demo and 112 same-image backend tests passed, along with desktop/mobile browser checks. One bounded live DeepSeek Flash run covered original SQL material ingestion, planning, quiz generation, grading and review. See [runtime acceptance](docs/local-runtime-acceptance.md) and [earlier verification](docs/verification.md). The candidate is now in the author’s private repository with GitHub Actions enabled; consult [the run for the relevant commit](https://github.com/zzx0540/learnloop/actions) for its result. The repository remains private pending explicit publication approval. This small live sample does not validate every provider, document format or language-learning flow.
 
 ## License
 
