@@ -89,4 +89,4 @@ Markdown/TXT 入库不需要文档解析服务。PDF、DOCX 和 EPUB 有本地�
 
 FastAPI · PostgreSQL · React · TypeScript · Vite · FSRS。开发与隔离测试步骤见 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
-主项目许可证待作者决定；当前不声明开源许可。PDF/EPUB解析依赖中包含 AGPL 组件，正式分发前需核对授权方案。参见 [依赖许可说明](docs/third-party-licenses.md)。公开候选包不含原仓库历史、生产配置、真实用户数据、数据库备份或第三方依赖源码。
+主项目许可证待作者决定；当前不声明开源许可。按现有依赖建议采用 **AGPL-3.0-only**，理由及影响见[许可证建议](docs/licensing-proposal.md)。PDF/EPUB解析依赖中包含 AGPL 组件，正式分发前需核对授权方案。参见 [依赖许可说明](docs/third-party-licenses.md)。公开候选包不含原仓库历史、生产配置、真实用户数据、数据库备份或第三方依赖源码。

@@ -1,6 +1,6 @@
 # Dependency license review
 
-The author has not selected a license for LearnLoop. Public visibility and permission to reuse code are separate decisions. This candidate does not declare MIT, Apache or another project license.
+The author has not selected a license for LearnLoop. The recommended option for the current dependency set is AGPL-3.0-only; see [the proposal](licensing-proposal.md), which is not yet an adopted license. Public visibility and permission to reuse code are separate decisions. This candidate does not declare MIT, Apache or another project license.
 
 The existing document parsers require attention before a public release:
 

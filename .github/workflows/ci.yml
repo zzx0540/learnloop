@@ -2,9 +2,13 @@ name: Verify public candidate
 on: [push, pull_request, workflow_dispatch]
 permissions:
   contents: read
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   backend:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     services:
       pg-test:
         image: postgres:16-alpine
@@ -34,6 +38,7 @@ jobs:
       - run: python -m pytest -q
   frontend:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     defaults:
       run:
         working-directory: frontend
@@ -49,9 +54,12 @@ jobs:
       - run: npm audit --audit-level=high
   demo:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - run: docker compose -p learnloop-demo-ci -f docker-compose.demo.yml up -d --build
       - run: python tools/smoke_demo.py --wait
+      - if: failure()
+        run: docker compose -p learnloop-demo-ci -f docker-compose.demo.yml logs --tail=100
       - if: always()
         run: docker compose -p learnloop-demo-ci -f docker-compose.demo.yml down -v

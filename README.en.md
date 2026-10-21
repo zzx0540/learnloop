@@ -58,4 +58,4 @@ The Docker image was built locally; a fresh PostgreSQL 16 demo and 112 same-imag
 
 ## License
 
-The project license has not been selected; this candidate does not grant an open-source license. Existing PDF/EPUB parsers include AGPL dependencies. Review [third-party licensing](docs/third-party-licenses.md) before public distribution. The candidate excludes production secrets, user data, operational history and the original Git history.
+The project license has not been selected; this candidate does not grant an open-source license. AGPL-3.0-only is proposed for the current dependency set, pending author approval; see [the proposal](docs/licensing-proposal.md). Existing PDF/EPUB parsers include AGPL dependencies. Review [third-party licensing](docs/third-party-licenses.md) before public distribution. The candidate excludes production secrets, user data, operational history and the original Git history.

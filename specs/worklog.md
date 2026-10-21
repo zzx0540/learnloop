@@ -7,3 +7,7 @@ Work is confined to this sanitized copy. The original repository and running ser
 ## 2026-10-20 [codex] Local container and live-provider acceptance
 
 Installed local WSL/Docker with system elevation as needed; built the candidate and passed 112 PostgreSQL16 same-image tests. Fixed demo port reachability using a localhost-only Nginx gateway; the application remains on the internal network. A bounded real DeepSeek Flash run covered ingestion, planning, quiz generation, grading and simulated-due review. Removed the temporary provider key after use. Evidence: docs/local-runtime-acceptance.md. Production and original repository unchanged; GitHub-hosted CI and licensing review remain pending.
+
+## 2026-10-20 [codex] Private GitHub preparation
+
+Prepared an AGPL-3.0-only proposal without granting a project license, added CI time limits and same-branch cancellation, and added sanitized issue/PR templates. The authorized next action is a personal private repository and GitHub-hosted CI; visibility must remain private until the author explicitly confirms publication.
